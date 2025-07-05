@@ -1,6 +1,11 @@
 import telebot
 from telebot import types
-bot = telebot.TeleBot('YOUR_BOT_TOKEN')
+import os
+from dotenv import load_dotenv
+# Load environment variables from .env file
+load_dotenv()
+
+bot = telebot.TeleBot(os.getenv('TG_API_key'))
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.send_message(message.chat.id, 'Привет! Я EcomBot. Я помогу вам интегрировать с электронной коммерцией.')
@@ -13,4 +18,4 @@ def integrate_ecommerce(message):
     ecommerce_info = message.text
     # Обработка интеграции с электронной коммерцией
     bot.send_message(message.chat.id, 'Интеграция с электронной коммерцией завершена!')
-bot.polling()
+bot.polling(none_stop=True)

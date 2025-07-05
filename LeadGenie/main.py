@@ -1,6 +1,11 @@
 import telebot
 from telebot import types
-bot = telebot.TeleBot('YOUR_BOT_TOKEN')
+import os
+from dotenv import load_dotenv
+# Load environment variables from .env file
+load_dotenv()
+
+bot = telebot.TeleBot(os.getenv('TG_API_key'))
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.send_message(message.chat.id, 'Привет! Я LeadGenie. Я помогу вам генерировать лиды.')
@@ -13,4 +18,4 @@ def generate_lead(message):
     lead_info = message.text
     # Обработка информации о лиде
     bot.send_message(message.chat.id, 'Лид сгенерирован!')
-bot.polling()
+bot.polling(none_stop=True)

@@ -1,6 +1,11 @@
 import telebot
 from telebot import types
-bot = telebot.TeleBot('YOUR_BOT_TOKEN')
+import os
+from dotenv import load_dotenv
+# Load environment variables from .env file
+load_dotenv()
+
+bot = telebot.TeleBot(os.getenv('TG_API_key'))
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.send_message(message.chat.id, 'Привет! Я HRHelper. Я помогу вам с кадровыми задачами.')
@@ -13,4 +18,4 @@ def publish_vacancy(message):
     vacancy_info = message.text
     # Обработка публикации вакансии
     bot.send_message(message.chat.id, 'Вакансия опубликована!')
-bot.polling()
+bot.polling(none_stop=True)

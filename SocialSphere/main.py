@@ -1,6 +1,11 @@
 import telebot
 from telebot import types
-bot = telebot.TeleBot('YOUR_BOT_TOKEN')
+import os
+from dotenv import load_dotenv
+# Load environment variables from .env file
+load_dotenv()
+
+bot = telebot.TeleBot(os.getenvt('TG_API_key'))
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.send_message(message.chat.id, 'Привет! Я SocialSphere. Я помогу вам управлять социальными сетями.')
@@ -13,4 +18,4 @@ def publish_post(message):
     post_text = message.text
     # Обработка публикации поста
     bot.send_message(message.chat.id, 'Пост опубликован!')
-bot.polling()
+bot.infine_polling()

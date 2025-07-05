@@ -1,6 +1,11 @@
 import telebot
 from telebot import types
-bot = telebot.TeleBot('YOUR_BOT_TOKEN')
+import os
+from dotenv import load_dotenv
+# Load environment variables from .env file
+load_dotenv()
+
+bot = telebot.TeleBot(os.getenv('TG_API_key'))
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.send_message(message.chat.id, 'Привет! Я ContentCraft. Я помогу вам создавать контент.')
@@ -13,4 +18,4 @@ def create_content(message):
     content_topic = message.text
     # Обработка создания контента
     bot.send_message(message.chat.id, 'Контент создан!')
-bot.polling()
+bot.polling(none_stop=True)

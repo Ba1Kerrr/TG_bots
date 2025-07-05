@@ -1,7 +1,12 @@
 import telebot
 from telebot import types
 import googletrans
-bot = telebot.TeleBot('YOUR_BOT_TOKEN')
+import os
+from dotenv import load_dotenv
+# Load environment variables from .env file
+load_dotenv()
+
+bot = telebot.TeleBot(os.getenv('TG_API_key'))
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.send_message(message.chat.id, 'Привет! Я LinguaBot. Я помогу вам перевести текст.')
@@ -14,4 +19,4 @@ def translate_text(message):
     text_to_translate = message.text
     # Обработка перевода текста
     bot.send_message(message.chat.id, 'Текст переведен!')
-bot.polling()
+bot.polling(none_stop=True)
